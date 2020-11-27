@@ -8,6 +8,7 @@ import java.util.*
 import javax.persistence.*
 
 private const val TokenLength = 3
+private const val ReadableDays: Long = 7
 
 @Entity
 @Table(indexes = [Index(name = "idx_room_id_and_token", columnList = "roomId,token", unique = true)])
@@ -30,6 +31,7 @@ data class Sprinkle(
                     LocalDateTime.now().plusMinutes(expiresMinutes), LocalDateTime.now())
 
     fun isExpired() = this.expiresAt < LocalDateTime.now()
+    fun isReadable() = this.createdAt > LocalDateTime.now().minusDays(ReadableDays)
     fun isOwner(userId: Long) = this.userId == userId
     fun addSprinkledCash(sprinkledCash: SprinkledCash) {
         sprinkledCashes.add(sprinkledCash)

@@ -33,7 +33,7 @@ class SprinkleService(val sprinkleRepository: SprinkleRepository, val chatMember
     fun get(userId: Long, roomId: String, token: String): Sprinkle {
         val sprinkle = sprinkleRepository.findByRoomIdAndToken(roomId, token) ?: throw NotFoundException()
         if (!sprinkle.isOwner(userId)) throw BadRequestException()
-        if (sprinkle.isExpired()) throw ExpiredException()
+        if (!sprinkle.isReadable()) throw ExpiredException()
         return sprinkle
     }
 
