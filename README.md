@@ -7,8 +7,9 @@
 2. 동시성 
  - row level lock 이용
 
-## 개발환경 
-- MySQL 띄위기
+## 개발 환경
+- Spring Boot, Kotlin, MySQL 
+- MySQL 실행하기
 ```
 docker-compose up -d
 ```
